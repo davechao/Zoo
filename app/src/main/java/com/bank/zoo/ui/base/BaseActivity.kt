@@ -48,14 +48,17 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun navigateTo(fragment: Fragment, backStack: Boolean = false) {
         val transaction = supportFragmentManager.beginTransaction()
-        val currentFragment: Fragment? = if (supportFragmentManager.fragments.size > 0) {
-            supportFragmentManager.fragments[0]
-        } else {
-            null
+        val currentFragment: Fragment? = when {
+            supportFragmentManager.fragments.size > 0 -> supportFragmentManager.fragments[0]
+            else -> null
         }
-        if (backStack && currentFragment != null)
+        if (backStack && currentFragment != null) {
             transaction.addToBackStack(currentFragment::class.java.simpleName)
-        transaction.replace(R.id.layout_fragment, fragment, fragment::class.java.simpleName).commit()
+        }
+        transaction.replace(
+            R.id.layout_fragment, fragment,
+            fragment::class.java.simpleName
+        ).commit()
     }
 
 }

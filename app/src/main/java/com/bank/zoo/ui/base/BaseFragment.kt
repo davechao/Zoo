@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bank.zoo.R
 import com.bank.zoo.ui.main.MainViewModel
-import com.bank.zoo.widget.utility.GeneralUtils.showToast
 
 abstract class BaseFragment : Fragment() {
 
@@ -45,14 +44,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun onBackPressed() {
-        val backStackEntryCount = requireActivity().supportFragmentManager.backStackEntryCount
-        takeIf { backStackEntryCount == 0 }?.run {
-            takeIf { mainViewModel?.needCloseApp ?: false }?.run { requireActivity().finish() }
-                ?: run {
-                    mainViewModel?.startBackExitAppTimer()
-                    showToast(requireContext(), getString(R.string.press_again_exit))
-                }
-        } ?: run { requireActivity().supportFragmentManager.popBackStack() }
+        requireActivity().supportFragmentManager.popBackStack()
     }
-
 }

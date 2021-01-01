@@ -18,12 +18,8 @@ class DetailFragment : BaseFragment() {
     companion object {
         private const val KEY_ITEM = "KEY_ITEM"
         fun createFragment(item: ZooItem): Fragment {
-            val bundle = Bundle().also {
-                it.putParcelable(KEY_ITEM, item)
-            }
-            return DetailFragment().also {
-                it.arguments = bundle
-            }
+            val bundle = Bundle().also { it.putParcelable(KEY_ITEM, item) }
+            return DetailFragment().also { it.arguments = bundle }
         }
     }
 
