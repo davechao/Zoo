@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.bank.zoo.R
 import com.bank.zoo.model.api.ApiResult.*
 import com.bank.zoo.ui.base.BaseFragment
+import com.bank.zoo.ui.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar.view.*
@@ -56,9 +57,8 @@ class HomeFragment : BaseFragment() {
     private val homeFuncListener by lazy {
         HomeFuncListener(
             onItemClick = {
-                Timber.d("Home Item Click")
+                navigateTo(DetailFragment.createFragment(it))
             }
         )
     }
-
 }

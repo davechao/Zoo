@@ -40,7 +40,7 @@ class HomeAdapter(
         holder.categoryMemo.text = item.memo
 
         holder.categoryLayout.setOnClickListener {
-            homeFuncListener.onItemClick()
+            homeFuncListener.onItemClick(item)
         }
     }
 

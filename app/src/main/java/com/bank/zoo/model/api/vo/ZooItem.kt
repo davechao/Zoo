@@ -1,7 +1,10 @@
 package com.bank.zoo.model.api.vo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ZooItem(
     @SerializedName("E_Pic_URL")
     val picUrl: String = "",
@@ -29,4 +32,4 @@ data class ZooItem(
 
     @SerializedName("E_URL")
     val url: String = "",
-)
+) : Parcelable
