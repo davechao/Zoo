@@ -25,7 +25,7 @@ class HomeFragment : BaseFragment() {
 
         viewModel.zooResult.observe(viewLifecycleOwner, {
             when (it) {
-                is Success -> it.result?.let { data -> generalVideoAdapter.updateData(data) }
+                is Success -> it.result?.let { data -> homeAdapter.updateData(data) }
                 is Error -> Timber.e("Error: $it")
                 else -> {
                 }
@@ -46,11 +46,11 @@ class HomeFragment : BaseFragment() {
     private fun setupContentUi() {
         rv_home.also {
             it.setHasFixedSize(true)
-            it.adapter = generalVideoAdapter
+            it.adapter = homeAdapter
         }
     }
 
-    private val generalVideoAdapter by lazy {
+    private val homeAdapter by lazy {
         HomeAdapter(homeFuncListener)
     }
 

@@ -1,5 +1,7 @@
 package com.bank.zoo.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -25,20 +27,25 @@ class DetailFragment : BaseFragment() {
 
     private val viewModel: DetailViewModel by viewModels()
 
+    private var detailAdapter: DetailAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val item = arguments?.getParcelable<ZooItem>(KEY_ITEM)
 
-        item?.name?.let { setupToolbarUi(it) }
+        item?.let {
+            setupToolbarUi(it)
+            setupContentUi(it)
+        }
     }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_detail
     }
 
-    private fun setupToolbarUi(title: String) {
-        layout_toolbar.tv_toolbar_title.text = title
+    private fun setupToolbarUi(item: ZooItem) {
+        layout_toolbar.tv_toolbar_title.text = item.name
 
         layout_toolbar.toolbar.also {
             it.navigationIcon = ContextCompat.getDrawable(
@@ -46,5 +53,26 @@ class DetailFragment : BaseFragment() {
             )
             it.setNavigationOnClickListener { onBackPressed() }
         }
+    }
+
+    private fun setupContentUi(item: ZooItem) {
+        detailAdapter = DetailAdapter(item, detailFuncListener)
+
+        rv_detail.also {
+            it.setHasFixedSize(true)
+            it.adapter = detailAdapter
+        }
+    }
+
+    private val detailFuncListener by lazy {
+        DetailFuncListener(
+            onOpenWeb = { url ->
+                Intent().also {
+                    it.action = Intent.ACTION_VIEW
+                    it.data = Uri.parse(url)
+                    startActivity(it)
+                }
+            }
+        )
     }
 }
