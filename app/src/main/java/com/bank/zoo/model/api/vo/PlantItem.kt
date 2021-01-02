@@ -1,7 +1,10 @@
 package com.bank.zoo.model.api.vo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class PlantItem(
     @SerializedName("F_Name_Latin")
     val nameLatin: String = "",
@@ -110,4 +113,4 @@ data class PlantItem(
 
     @SerializedName("_id")
     val id: Long = 0,
-)
+) : Parcelable

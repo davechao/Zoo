@@ -11,6 +11,7 @@ import com.bank.zoo.R
 import com.bank.zoo.model.api.ApiResult.*
 import com.bank.zoo.model.api.vo.ZooItem
 import com.bank.zoo.ui.base.BaseFragment
+import com.bank.zoo.ui.plant.PlantFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.toolbar.view.*
@@ -87,7 +88,7 @@ class DetailFragment : BaseFragment() {
                 }
             },
             onPlantItemClick = {
-                Timber.d("@@: ${it.pic01Url}")
+                navigateTo(PlantFragment.createFragment(it))
             }
         )
     }
