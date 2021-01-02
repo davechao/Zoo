@@ -9,6 +9,9 @@ import com.bank.zoo.R
 import com.bank.zoo.model.api.vo.PlantItem
 import com.bank.zoo.model.api.vo.ZooItem
 import com.bank.zoo.ui.base.BaseFragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_plant.*
 import kotlinx.android.synthetic.main.toolbar.view.*
@@ -33,6 +36,7 @@ class PlantFragment : BaseFragment() {
 
         item?.let {
             setupToolbarUi(it)
+            setupContentUi(it)
         }
     }
 
@@ -49,5 +53,14 @@ class PlantFragment : BaseFragment() {
             )
             it.setNavigationOnClickListener { onBackPressed() }
         }
+    }
+
+    private fun setupContentUi(item: PlantItem) {
+        Glide.with(requireContext())
+            .load(item.pic01Url)
+            .placeholder(R.drawable.ic_picture_small_empty)
+            .error(R.drawable.ic_picture_small_empty)
+            .into(iv_plant)
+
     }
 }
