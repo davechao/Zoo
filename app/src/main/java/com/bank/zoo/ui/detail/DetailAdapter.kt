@@ -8,9 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bank.zoo.R
+import com.bank.zoo.model.api.vo.PlantItem
 import com.bank.zoo.model.api.vo.ZooItem
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_detail.view.*
+import kotlinx.android.synthetic.main.item_plants.view.*
 
 class DetailAdapter(
     private val item: ZooItem,
@@ -22,6 +24,8 @@ class DetailAdapter(
         const val VIEW_TYPE_PLANT_TITLE = 1
         const val VIEW_TYPE_PLANTS = 2
     }
+
+    private var plantAdapter: PlantAdapter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -56,7 +60,8 @@ class DetailAdapter(
             is DetailViewHolder -> {
                 Glide.with(holder.categoryImg.context)
                     .load(item.picUrl)
-                    .error(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.ic_picture_small_empty)
+                    .error(R.drawable.ic_picture_small_empty)
                     .into(holder.categoryImg)
 
                 holder.categoryInfo.text = item.info
@@ -72,11 +77,12 @@ class DetailAdapter(
                     detailFuncListener.onOpenWeb(item.url)
                 }
             }
-            is PlantTitleViewHolder -> {
-
-            }
             is PlantsViewHolder -> {
-
+                plantAdapter = PlantAdapter(detailFuncListener)
+                holder.plantRecyclerView.also {
+                    it.setHasFixedSize(true)
+                    it.adapter = plantAdapter
+                }
             }
         }
     }
@@ -96,7 +102,10 @@ class DetailAdapter(
     class PlantTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class PlantsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var plantRecyclerView: RecyclerView = itemView.rv_plant
     }
 
+    fun updatePlantData(data: ArrayList<PlantItem>) {
+        plantAdapter?.updateData(data)
+    }
 }

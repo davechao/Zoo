@@ -8,11 +8,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bank.zoo.R
+import com.bank.zoo.model.api.ApiResult.*
 import com.bank.zoo.model.api.vo.ZooItem
 import com.bank.zoo.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.toolbar.view.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment() {
@@ -38,6 +40,17 @@ class DetailFragment : BaseFragment() {
             setupToolbarUi(it)
             setupContentUi(it)
         }
+
+        viewModel.plantResult.observe(viewLifecycleOwner, {
+            when (it) {
+                is Success -> it.result?.let { data -> detailAdapter?.updatePlantData(data) }
+                is Error -> Timber.e("Error: $it")
+                else -> {
+                }
+            }
+        })
+
+        viewModel.getPlant()
     }
 
     override fun getLayoutId(): Int {
@@ -72,6 +85,9 @@ class DetailFragment : BaseFragment() {
                     it.data = Uri.parse(url)
                     startActivity(it)
                 }
+            },
+            onPlantItemClick = {
+                Timber.d("@@: ${it.pic01Url}")
             }
         )
     }

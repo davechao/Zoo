@@ -32,7 +32,8 @@ class HomeAdapter(
 
         Glide.with(holder.categoryImg.context)
             .load(item.picUrl)
-            .error(R.mipmap.ic_launcher)
+            .placeholder(R.drawable.ic_picture_small_empty)
+            .error(R.drawable.ic_picture_small_empty)
             .into(holder.categoryImg)
 
         holder.categoryTitle.text = item.name

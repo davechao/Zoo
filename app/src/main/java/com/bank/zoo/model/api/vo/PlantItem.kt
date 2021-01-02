@@ -27,7 +27,7 @@ data class PlantItem(
     @SerializedName("F_Pic02_URL")
     val pic02Url: String = "",
 
-    @SerializedName("F_Name_Ch")
+    @SerializedName("\uFEFFF_Name_Ch")
     val nameCh: String = "",
 
     @SerializedName("F_Keywords")

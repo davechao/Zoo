@@ -63,9 +63,9 @@
     <ImageView
         android:id="@+id/iv_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_marginBottom="8dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@+id/tv_info"
         app:layout_constraintEnd_toEndOf="parent"
