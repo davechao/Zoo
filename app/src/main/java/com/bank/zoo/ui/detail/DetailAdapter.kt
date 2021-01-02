@@ -1,5 +1,6 @@
 package com.bank.zoo.ui.detail
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +60,14 @@ class DetailAdapter(
                     .into(holder.categoryImg)
 
                 holder.categoryInfo.text = item.info
-                holder.categoryMemo.text = item.memo
                 holder.categoryArea.text = item.category
+
+                if (TextUtils.isEmpty(item.memo)) {
+                    holder.categoryMemo.visibility = View.GONE
+                } else {
+                    holder.categoryMemo.text = item.memo
+                }
+
                 holder.categoryOpenWeb.setOnClickListener {
                     detailFuncListener.onOpenWeb(item.url)
                 }
@@ -86,9 +93,7 @@ class DetailAdapter(
         var categoryOpenWeb: TextView = itemView.tv_open_web
     }
 
-    class PlantTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class PlantTitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     class PlantsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
