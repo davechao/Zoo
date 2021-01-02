@@ -13,5 +13,6 @@
     <color name="bg_status">#BDBDBD</color>
     <color name="line">#EEEEEE</color>
     <color name="open_web">#2196F3</color>
+    <color name="bg_space">#EEEEEE</color>
 
 </resources>
