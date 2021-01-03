@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bank.zoo.R
 import com.bank.zoo.ui.main.MainViewModel
+import com.bank.zoo.widget.utility.GeneralUtils.showToast
+import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
 
@@ -45,5 +47,10 @@ abstract class BaseFragment : Fragment() {
 
     open fun onBackPressed() {
         requireActivity().supportFragmentManager.popBackStack()
+    }
+
+    fun onApiError(throwable: Throwable) {
+        Timber.e("onApiError: $throwable")
+        showToast(requireContext(), "${throwable.message}")
     }
 }

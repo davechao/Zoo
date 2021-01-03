@@ -10,7 +10,6 @@ import com.bank.zoo.ui.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -23,12 +22,22 @@ class HomeFragment : BaseFragment() {
         setupToolbarUi()
         setupContentUi()
 
+        layout_refresh.setOnRefreshListener {
+            viewModel.getZoo()
+        }
+
         viewModel.zooResult.observe(viewLifecycleOwner, {
             when (it) {
-                is Success -> it.result?.let { data -> homeAdapter.updateData(data) }
-                is Error -> Timber.e("Error: $it")
-                else -> {
+                is Loading -> layout_refresh.isRefreshing = true
+                is Loaded -> layout_refresh.isRefreshing = false
+                is Success -> {
+                    it.result?.let { data -> homeAdapter.updateData(data) }
+                    tv_data_empty.visibility = when {
+                        homeAdapter.isEmpty() -> View.VISIBLE
+                        else -> View.GONE
+                    }
                 }
+                is Error -> onApiError(it.throwable)
             }
         })
 

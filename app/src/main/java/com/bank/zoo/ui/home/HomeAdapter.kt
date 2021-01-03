@@ -64,4 +64,8 @@ class HomeAdapter(
         zooItems = data
         notifyDataSetChanged()
     }
+
+    fun isEmpty(): Boolean {
+        return itemCount == 0
+    }
 }
