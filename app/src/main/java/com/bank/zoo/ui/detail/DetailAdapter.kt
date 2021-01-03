@@ -105,7 +105,11 @@ class DetailAdapter(
         var plantRecyclerView: RecyclerView = itemView.rv_plant
     }
 
-    fun updatePlantData(data: ArrayList<PlantItem>) {
+    fun updatePlantsData(data: ArrayList<PlantItem>) {
         plantAdapter?.updateData(data)
+    }
+
+    fun isPlantsEmpty(): Boolean? {
+        return plantAdapter?.isEmpty()
     }
 }

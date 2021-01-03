@@ -10,6 +10,8 @@ import com.bank.zoo.model.repository.ZooRepository
 import com.bank.zoo.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class DetailViewModel @ViewModelInject constructor(
@@ -22,7 +24,9 @@ class DetailViewModel @ViewModelInject constructor(
     fun getPlant() {
         viewModelScope.launch {
             zooRepository.getPlant()
+                .onStart { _plantResult.value = ApiResult.loading() }
                 .catch { e -> _plantResult.value = ApiResult.error(e) }
+                .onCompletion { _plantResult.value = ApiResult.loaded() }
                 .collect { _plantResult.value = ApiResult.success(it) }
         }
     }

@@ -14,8 +14,8 @@ import com.bank.zoo.ui.base.BaseFragment
 import com.bank.zoo.ui.plant.PlantFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.layout_toolbar
 import kotlinx.android.synthetic.main.toolbar.view.*
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment() {
@@ -42,11 +42,27 @@ class DetailFragment : BaseFragment() {
             setupContentUi(it)
         }
 
+        tv_retry.setOnClickListener {
+            viewModel.getPlant()
+        }
+
         viewModel.plantResult.observe(viewLifecycleOwner, {
             when (it) {
-                is Success -> it.result?.let { data -> detailAdapter?.updatePlantData(data) }
-                is Error -> Timber.e("Error: $it")
-                else -> {
+                is Loading -> {
+                    layout_retry.visibility = View.GONE
+                    progress.visibility = View.VISIBLE
+                }
+                is Loaded -> progress.visibility = View.GONE
+                is Success -> {
+                    it.result?.let { data -> detailAdapter?.updatePlantsData(data) }
+                    layout_retry.visibility = when {
+                        detailAdapter?.isPlantsEmpty() == true -> View.VISIBLE
+                        else -> View.GONE
+                    }
+                }
+                is Error -> {
+                    layout_retry.visibility = View.VISIBLE
+                    onApiError(it.throwable)
                 }
             }
         })

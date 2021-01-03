@@ -61,4 +61,8 @@ class PlantAdapter(
         plantItems = data
         notifyDataSetChanged()
     }
+
+    fun isEmpty(): Boolean {
+        return itemCount == 0
+    }
 }
