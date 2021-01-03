@@ -62,5 +62,12 @@ class PlantFragment : BaseFragment() {
             .error(R.drawable.ic_picture_small_empty)
             .into(iv_plant)
 
+        tv_cn_name.text = item.nameCh
+        tv_en_name.text = item.nameEn
+        tv_also_known.text = item.alsoKnown
+        tv_brief.text = item.brief
+        tv_feature.text = item.feature
+        tv_function.text = item.functionApplication
+        tv_update_time.text = item.update
     }
 }
