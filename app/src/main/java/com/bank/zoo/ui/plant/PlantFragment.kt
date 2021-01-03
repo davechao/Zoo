@@ -7,11 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bank.zoo.R
 import com.bank.zoo.model.api.vo.PlantItem
-import com.bank.zoo.model.api.vo.ZooItem
 import com.bank.zoo.ui.base.BaseFragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_plant.*
 import kotlinx.android.synthetic.main.toolbar.view.*
